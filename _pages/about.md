@@ -56,7 +56,7 @@ education:
     logo: WHU_icon.png
     role: B.S. in Archival Science
     details:
-      - Admitted to the School of Information Management's <strong>honors combined B.S./M.S./Ph.D. program</strong> in Computational Cultural Heritage, a selective track for top undergraduates.
+      - Admitted to the School of Information Management's <strong>honors combined B.S./M.S./Ph.D. program</strong> in Computational Cultural Heritage, <strong>a selective track for top undergraduates</strong>.
       - "<strong>Outstanding Undergraduate Thesis (top 10 of 228)</strong>: “Design of an Automated System for Flowchart Generation from Scientific and Technical Literature”"
     period: 2022 – 2026
 
