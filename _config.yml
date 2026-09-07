@@ -682,20 +682,5 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
-
-jsonresume:
-  - basics
-  - work
-  - education
-  - publications
-  - projects
-  - volunteer
-  - awards
-  - certificates
-  - skills
-  - languages
-  - interests
-  - references
+# The CV is offered only as a PDF (assets/pdf/Alimurat_CV.pdf) from the homepage; no JSON resume is loaded.
+jekyll_get_json: []

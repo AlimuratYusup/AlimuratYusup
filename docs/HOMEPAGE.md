@@ -8,7 +8,7 @@ Edit `_pages/about.md` for the biography, portrait, the `experience:` and `educa
 
 Selected publications reuse the gem's `selected_papers.liquid`: entries in `_bibliography/papers.bib` marked `selected={true}` appear under "selected publications" in the original al-folio style, with the venue badge colored from `_data/venues.yml`. News stays disabled until real `_news` entries exist (`announcements.enabled: true`). Latest Posts is hidden. The navbar shows only about, publications, and CV; the other starter pages remain in the repo with `nav: false` and posts are excluded from search.
 
-The CV page renders `_data/cv.yml` (rendercv format, transcribed from `assets/pdf/Alimurat_CV.pdf`) and links the same PDF from its download button.
+There is no CV page. The CV is offered only as `assets/pdf/Alimurat_CV.pdf`, linked from the homepage CV icon via `_data/socials.yml`.
 
 The email, LinkedIn, Google Scholar, and CV icons use `_data/socials.yml` and the existing social-link plugin. The supplied CV is moved to `assets/pdf/Alimurat_CV.pdf`, linked directly from the CV icon. Starter social profiles have been replaced with the supplied personal links.
 
