@@ -158,7 +158,8 @@
   &::before {
     content: "·";
     margin: 0 0.35rem;
-    color: var(--global-text-color-light);
+    font-weight: 700;
+    color: var(--global-text-color);
   }
 }
 
@@ -166,6 +167,27 @@
 .timeline-period {
   color: var(--global-text-color-light);
   font-size: 0.8rem;
+}
+
+.timeline-detail--item {
+  padding-left: 0.9rem;
+  text-indent: -0.9rem;
+
+  & + & {
+    margin-top: 0.3rem;
+  }
+
+  &::before {
+    content: "·";
+    display: inline-block;
+    width: 0.9rem;
+    text-indent: 0;
+    font-size: 1.35em;
+    line-height: 0;
+    vertical-align: -0.05em;
+    font-weight: 700;
+    color: var(--global-theme-color);
+  }
 }
 
 .timeline-period {

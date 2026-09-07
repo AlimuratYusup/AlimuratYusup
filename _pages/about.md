@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Master of Computer Science student · Texas A&M University
+subtitle: Master of Computer Science student <strong>·</strong> Texas A&M University
 
 profile:
   image: id_photo_lite_grain.png
@@ -29,7 +29,7 @@ experience:
     url: https://chaofengc.github.io/group.html
     logo: MindVisionLab_icon.png
     role: Research Assistant
-    detail: Multimodal figure generation · Supervised by Prof. Chaofeng Chen
+    detail: Multimodal figure generation <strong>·</strong> Supervised by Prof. Chaofeng Chen
     period: Oct 2025 – Aug 2026
   - institution: University of Texas at Austin
     url: https://www.utexas.edu/
