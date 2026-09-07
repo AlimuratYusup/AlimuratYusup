@@ -25,7 +25,7 @@ test("site remains light and offers no theme settings", async ({ page }) => {
   await expect(page.locator("html")).toHaveCSS("color-scheme", "light");
   await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
   await expect(page.locator("#navbar .nav-item.active > a")).toHaveCSS("color", "rgb(80, 0, 0)");
-  await expect(page.locator("#experience h2")).toHaveCSS("color", "rgb(80, 0, 0)");
+  await expect(page.locator("#experience .timeline-title a").first()).toHaveCSS("color", "rgb(80, 0, 0)");
 
   const navigationToggle = page.getByRole("button", { name: "Toggle navigation" });
   if (await navigationToggle.isVisible()) await navigationToggle.click();
@@ -43,8 +43,11 @@ test("portrait, real content, and footer fit desktop and mobile", async ({ page 
   const portrait = page.getByRole("img", { name: "Ailimulati Yusupu", exact: true });
   await expect(portrait).toBeVisible();
   await expect.poll(() => portrait.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
-  await expect(page.locator("#experience .experience-entry")).toHaveCount(3);
-  await expect(page.locator("#news, #publications, .latest-posts")).toHaveCount(0);
+  await expect(page.locator("#experience .timeline-entry")).toHaveCount(3);
+  await expect(page.locator("#education .timeline-entry")).toHaveCount(3);
+  await expect(page.locator("#news, .latest-posts")).toHaveCount(0);
+  await expect(page.locator("#publications ol.bibliography > li")).toHaveCount(1);
+  await expect(page.locator("#publications")).toContainText("Medical QA dialogue datasets");
   const contacts = page.getByRole("navigation", { name: "Contact and profiles" });
   await expect(contacts.getByRole("link")).toHaveCount(4);
   await expect(contacts.getByRole("link", { name: "Email", exact: true })).toHaveAttribute("href", "mailto:alimuratysp@gmail.com");
@@ -70,16 +73,19 @@ test("portrait, real content, and footer fit desktop and mobile", async ({ page 
 
   const imageBox = await portrait.boundingBox();
   const biographyBox = await page.locator(".home-biography").boundingBox();
-  expect(imageBox.width / imageBox.height).toBeCloseTo(2484 / 2472, 2);
+  expect(imageBox.width).toBeCloseTo(imageBox.height, 0);
+  await expect(portrait).toHaveCSS("border-radius", /^(50%|9999px)$/);
   if (testInfo.project.name === "mobile") {
-    expect(imageBox.y + imageBox.height).toBeLessThanOrEqual(biographyBox.y);
+    expect(imageBox.width).toBeLessThanOrEqual(150);
   } else {
-    expect(imageBox.x).toBeGreaterThan(biographyBox.x + biographyBox.width);
+    expect(imageBox.width).toBeLessThanOrEqual(170);
+    expect(imageBox.x + imageBox.width).toBeCloseTo(biographyBox.x + biographyBox.width, -1);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 
   const footer = page.getByRole("contentinfo");
-  await expect(footer).toHaveText(/©\s+\d{4}\s+Ailimulati\s+Yusupu\./);
+  await expect(footer).toHaveText(/Last updated by Ailimulati, [A-Z][a-z]{2} \d{4}\. Template modified from\s+al-folio\./);
+  await expect(footer.getByRole("link", { name: "al-folio" })).toHaveAttribute("href", "https://github.com/alshedivat/al-folio");
   await expect(footer).toHaveCSS("position", "static");
   await expect(footer).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   await expect(footer).not.toBeInViewport();
@@ -105,13 +111,13 @@ for (const outcome of ["loaded", "failed"]) {
     });
     await page.goto(homePath, { waitUntil: "domcontentloaded" });
     const map = page.locator("#visitor-map-section");
-    await expect(map).toHaveCSS("max-width", "347px");
+    await expect(map).toHaveCSS("max-width", "220px");
     // WebKit keeps document.fonts.ready pending until the delayed image finishes.
     // Load text fonts explicitly so unrelated font swaps cannot move the footer.
     await page.evaluate(() => Promise.all([300, 400, 500, 700].map((weight) => document.fonts.load(`${weight} 16px Roboto`))));
     const before = await map.boundingBox();
     const footerBefore = await page.getByRole("contentinfo").boundingBox();
-    expect(before.width).toBeLessThanOrEqual(347);
+    expect(before.width).toBeLessThanOrEqual(220);
     expect(before.height).toBeCloseTo((before.width * 195) / 347, 1);
     release();
     if (outcome === "failed") {

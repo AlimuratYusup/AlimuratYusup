@@ -2,121 +2,137 @@
 layout: default
 ---
 <div class="post homepage">
-  <section id="about" aria-labelledby="about-title">
-    <header class="post-header">
-      <h1 class="post-title" id="about-title">
-        {{ site.first_name }}
-        {{ site.middle_name }}
-        {{ site.last_name }}
-      </h1>
-      {% if page.subtitle %}
-        <p class="desc">{{ page.subtitle }}</p>
-      {% endif %}
-    </header>
-    <div class="home-intro">
-      <div class="home-biography">
-        {{ content }}
-        {% if page.social %}
-          <nav class="social home-socials" aria-label="Contact and profiles">
-            <div class="contact-icons">
-              {% capture personal_social_links %}{% social_links %}{% endcapture %}
-              {{
-                personal_social_links
-                | replace: "title='Email'", "title='Email' aria-label='Email'"
-                | replace: "title='Linkedin username'", "title='LinkedIn' aria-label='LinkedIn'"
-                | replace: "title='Scholar userid'", "title='Google Scholar' aria-label='Google Scholar'"
-                | replace: "title='Cv pdf'", "title='CV (PDF)' aria-label='CV (PDF)'"
-              }}
-            </div>
-          </nav>
+  <header class="post-header">
+    <h1 class="post-title" id="about-title">
+      {{ site.first_name }}
+      {{ site.middle_name }}
+      {{ site.last_name }}
+    </h1>
+    {% if page.subtitle %}
+      <p class="desc">{{ page.subtitle }}</p>
+    {% endif %}
+  </header>
+
+  <article>
+    {% if page.profile.image %}
+      <div class="profile float-right">
+        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+        {% if page.profile.image_circular %}
+          {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+        {% else %}
+          {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
         {% endif %}
+        {%
+          include figure.liquid
+          path=profile_image_path
+          class=profile_image_class
+          sizes='170px'
+          alt=page.profile.alt
+          loading='eager'
+          cache_bust=true
+        %}
       </div>
-      {% if page.profile.image %}
-        <div class="home-portrait">
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {%
-            include figure.liquid
-            path=profile_image_path
-            class='img-fluid rounded'
-            sizes='(min-width: 768px) 270px, 240px'
-            alt=page.profile.alt
-            loading='eager'
-            cache_bust=true
-          %}
+    {% endif %}
+
+    <div class="clearfix home-biography">{{ content }}</div>
+
+    {% if page.social %}
+      <nav class="social home-socials" aria-label="Contact and profiles">
+        <div class="contact-icons">
+          {% capture personal_social_links %}{% social_links %}{% endcapture %}
+          {{
+            personal_social_links
+            | replace: "title='Email'", "title='Email' aria-label='Email'"
+            | replace: "title='Linkedin username'", "title='LinkedIn' aria-label='LinkedIn'"
+            | replace: "title='Scholar userid'", "title='Google Scholar' aria-label='Google Scholar'"
+            | replace: "title='Cv pdf'", "title='CV (PDF)' aria-label='CV (PDF)'"
+          }}
         </div>
-      {% endif %}
-    </div>
-  </section>
+      </nav>
+    {% endif %}
 
-  {% if page.announcements.enabled and site.news.size > 0 %}
-    <section class="home-section" id="news" aria-labelledby="news-title">
-      <h2 id="news-title"><a href="{{ '/news/' | relative_url }}">News</a></h2>
-      <div class="home-module">{% include news.liquid limit=true %}</div>
-    </section>
-  {% endif %}
-
-  {% if page.selected_papers %}
-    {% capture selected_publications %}{% include selected_papers.liquid %}{% endcapture %}
-    {% if selected_publications contains '<li' %}
-      <section class="home-section" id="publications" aria-labelledby="publications-title">
-        <h2 id="publications-title"><a href="{{ '/publications/' | relative_url }}">Selected Publications</a></h2>
-        <div class="home-module">{{ selected_publications }}</div>
+    {% if page.announcements.enabled and site.news.size > 0 %}
+      <section class="home-section" id="news" aria-labelledby="news-title">
+        <h2 id="news-title"><a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a></h2>
+        {% include news.liquid limit=true %}
       </section>
     {% endif %}
-  {% endif %}
 
-  {% if page.experience.size > 0 %}
-    <section class="home-section" id="experience" aria-labelledby="experience-title">
-      <h2 id="experience-title">Education &amp; Experience</h2>
-      <ul class="home-module experience-list">
-        {% for entry in page.experience %}
-          <li class="experience-entry">
-            <img src="{{ entry.logo | prepend: '/assets/img/' | relative_url }}" alt="" width="56" height="56" loading="lazy">
-            <div class="experience-details">
-              <h3>
-                <a href="{{ entry.url }}">{{ entry.institution }}</a>
-              </h3>
-              <p>{{ entry.role }}</p>
-              {% if entry.detail %}
-                <p class="experience-note">{{ entry.detail }}</p>
-              {% endif %}
-            </div>
-            {% if entry.status -%}
-              <span class="experience-status">{{ entry.status }}</span>
-            {%- endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+    {% if page.selected_papers %}
+      {% capture selected_publications %}{% include selected_papers.liquid %}{% endcapture %}
+      {% if selected_publications contains '<li' %}
+        <section class="home-section" id="publications" aria-labelledby="publications-title">
+          <h2 id="publications-title"><a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a></h2>
+          {{ selected_publications }}
+        </section>
+      {% endif %}
+    {% endif %}
 
-  {% if page.visitor_map %}
-    <section class="home-section visitors-section" id="visitors" aria-labelledby="visitors-title">
-      <h2 id="visitors-title">Visitors</h2>
-      <svg class="visitor-map-colors" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="visitor-map-maroon" color-interpolation-filters="sRGB">
-            <!-- The static provider image ignores marker-color parameters. Map its pink markers
-                 (#ff7171) to maroon (#500000); each RGB row sums to 1, preserving neutral grays. -->
-            <feColorMatrix type="matrix" values="-0.232394 0.616197 0.616197 0 0 -0.795775 0.8978875 0.8978875 0 0 -0.795775 0.8978875 0.8978875 0 0 0 0 0 1 0" />
-          </filter>
-        </defs>
-      </svg>
-      <div id="visitor-map-section">
-        <a href="{{ page.visitor_map.url }}" target="_blank" rel="noopener noreferrer" aria-label="View visitor map on MapMyVisitors">
-          <img
-            src="{{ page.visitor_map.image | escape }}"
-            alt="World map showing visitor locations"
-            width="347"
-            height="195"
-            loading="eager"
-            decoding="async"
-            style="filter: url(#visitor-map-maroon)"
-            onerror="this.hidden = true; this.nextElementSibling.hidden = false;"
-          >
-          <span class="visitor-map-fallback" hidden>Visitor map is temporarily unavailable.</span>
-        </a>
+    {% assign timeline_sections = 'experience,education' | split: ',' %}
+    {% for section_name in timeline_sections %}
+      {% assign entries = page[section_name] %}
+      {% if entries.size > 0 %}
+        <section class="home-section" id="{{ section_name }}" aria-labelledby="{{ section_name }}-title">
+          <h2 id="{{ section_name }}-title">{{ section_name }}</h2>
+          <ol class="timeline">
+            {% for entry in entries %}
+              <li class="timeline-entry">
+                {% if entry.logo %}
+                  <img
+                    class="timeline-logo"
+                    src="{{ entry.logo | prepend: '/assets/img/' | relative_url }}"
+                    alt=""
+                    width="28"
+                    height="28"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <span class="timeline-logo timeline-initial" aria-hidden="true">
+                    {{- entry.initials | default: entry.institution | slice: 0, 2 -}}
+                  </span>
+                {% endif %}
+                <div class="timeline-body">
+                  <p class="timeline-title">
+                    {% if entry.url %}
+                      <a href="{{ entry.url }}">{{ entry.institution }}</a>
+                    {% else %}
+                      <span>{{ entry.institution }}</span>
+                    {% endif %}
+                    {% if entry.role %}
+                      <span class="timeline-role">{{ entry.role }}</span>
+                    {% endif %}
+                  </p>
+                  {% if entry.detail %}
+                    <p class="timeline-detail">{{ entry.detail }}</p>
+                  {% endif %}
+                </div>
+                {% if entry.period %}
+                  <span class="timeline-period">{{ entry.period }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ol>
+        </section>
+      {% endif %}
+    {% endfor %}
+
+    {% if page.visitor_map %}
+      <div class="visitors-section" id="visitors">
+        <div id="visitor-map-section" class="visitor-map--muted">
+          <a href="{{ page.visitor_map.url }}" target="_blank" rel="noopener noreferrer" aria-label="View visitor map on MapMyVisitors">
+            <img
+              src="{{ page.visitor_map.image | escape }}"
+              alt="World map showing visitor locations"
+              width="220"
+              height="124"
+              loading="eager"
+              decoding="async"
+              onerror="this.hidden = true; this.nextElementSibling.hidden = false;"
+            >
+            <span class="visitor-map-fallback" hidden>Visitor map is temporarily unavailable.</span>
+          </a>
+        </div>
       </div>
-    </section>
-  {% endif %}
+    {% endif %}
+  </article>
 </div>

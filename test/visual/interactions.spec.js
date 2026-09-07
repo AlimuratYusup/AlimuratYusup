@@ -183,6 +183,7 @@ test("inline code uses compact normal-weight typography", async ({ page }) => {
 });
 
 test("project cards hover with upward lift animation", async ({ page }, testInfo) => {
+  test.skip(true, "this personal site has no project entries; the projects page is hidden from navigation");
   test.skip(testInfo.project.name === "mobile", "hover-specific assertion is desktop-only");
 
   await preparePage(page, "light");

@@ -1,8 +1,6 @@
 <footer class="site-footer" role="contentinfo">
   <div class="container">
-    &copy; {{ site.time | date: '%Y' }}
-    {{ site.first_name -}}
-    {%- if site.middle_name %} {{ site.middle_name }}{% endif %}
-    {{ site.last_name }}.
+    Last updated by {{ site.first_name }}, {{ site.time | date: '%b %Y' }}. Template modified from
+    <a href="https://github.com/alshedivat/al-folio" target="_blank" rel="external nofollow noopener">al-folio</a>.
   </div>
 </footer>
