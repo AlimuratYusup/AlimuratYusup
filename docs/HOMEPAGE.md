@@ -4,7 +4,7 @@ The homepage retains al-folio's light typography and layout with Texas A&M maroo
 
 ## Content
 
-Edit `_pages/about.md` for the biography, portrait, the `experience:` and `education:` timelines, and the visitor-map URL. Each timeline entry takes `institution`, `url`, `logo` (or `initials` when no logo exists), `role`, `detail`, and `period`; dates come from the CV.
+Edit `_pages/about.md` for the biography, portrait, the `experience:` and `education:` timelines, and the visitor-map URL. Each timeline entry takes `institution`, `url`, `logo` (or `initials` when no logo exists), `role`, `detail` (one line) or `details` (a list of lines), and `period`; dates come from the CV.
 
 Selected publications reuse the gem's `selected_papers.liquid`: entries in `_bibliography/papers.bib` marked `selected={true}` appear under "selected publications" in the original al-folio style, with the venue badge colored from `_data/venues.yml`. News stays disabled until real `_news` entries exist (`announcements.enabled: true`). Latest Posts is hidden. The navbar shows only about, publications, and CV; the other starter pages remain in the repo with `nav: false` and posts are excluded from search.
 

@@ -36,7 +36,7 @@ experience:
     logo: UT_Austin_icon.png
     role: Visiting Student
     detail: Software engineering
-    period: Jan 2026 – Feb 2026
+    period: "2026"
 
 education:
   - institution: Texas A&M University
@@ -48,15 +48,17 @@ education:
   - institution: Wuhan University
     url: https://en.whu.edu.cn/
     logo: WHU_icon.png
-    role: B.S. in Archival Science
-    detail: School of Information Management · Outstanding Undergraduate Thesis
-    period: Sep 2022 – Jun 2026
+    role: B.S. in Computer Science
+    detail: School of Computer Science
+    period: Mar 2024 – Jun 2026
   - institution: Wuhan University
     url: https://en.whu.edu.cn/
     logo: WHU_icon.png
-    role: B.S. in Computer Science and Technology (double degree)
-    detail: School of Computer Science
-    period: Mar 2024 – Jun 2026
+    role: B.S. in Archival Science
+    details:
+      - Admitted to the School of Information Management's honors combined B.S./M.S./Ph.D. program in Computational Cultural Heritage, a selective track for top undergraduates.
+      - "Outstanding Undergraduate Thesis (top 10 of 228): “Design of an Automated System for Flowchart Generation from Scientific and Technical Literature”"
+    period: Sep 2022 – Jun 2026
 
 visitor_map:
   image: https://mapmyvisitors.com/map.png?d=fXw9Vlslih10VunNBDNhv7my0H_HH5a6kCFwKiB-Jas&cl=d1d1d1&co=ffffff&ct=707070&w=220
