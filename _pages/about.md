@@ -2,115 +2,66 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: M.S. student in Computer Science · Texas A&M University
 
 profile:
-  align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+  image: id_photo_lite_grain.png
+  alt: Ailimulati Yusupu
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
-
+# Enable these sections after replacing the starter news and bibliography entries.
+selected_papers: false
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
+  enabled: false
+  scrollable: false
+  limit: 5
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
+social: true
+
+experience:
+  - institution: Texas A&M University
+    url: https://www.tamu.edu/
+    logo: TAMU_icon_v3.png
+    role: Master of Science in Computer Science
+    detail: Department of Computer Science and Engineering · Advised by Prof. Zhengzhong Tu
+    status: Current
+  - institution: MindVision Lab
+    url: https://chaofengc.github.io/group.html
+    logo: MindVisionLab_icon.png
+    role: Research Assistant
+    detail: Supervised by Prof. Chaofeng Chen
+  - institution: Wuhan University
+    url: https://en.whu.edu.cn/
+    logo: WHU_icon.png
+    role: Bachelor’s degree
+
+visitor_map:
+  image: https://mapmyvisitors.com/map.png?d=fXw9Vlslih10VunNBDNhv7my0H_HH5a6kCFwKiB-Jas&cl=d1d1d1&co=ffffff&ct=707070&w=347
+  url: https://mapmyvisitors.com/
 ---
-<style>
-  .post-title .font-weight-bold {
-    font-weight: inherit !important;
-  }
-</style>
 
 <p>
   I am a first-year master’s student in the Master of Science in Computer Science program in the
-  <a href="https://engineering.tamu.edu/cse/index.html"
-     style="color: #500000; font-weight: 500;">
-    Department of Computer Science and Engineering
-  </a>
+  <a href="https://engineering.tamu.edu/cse/index.html">Department of Computer Science and Engineering</a>
   at
-  <a href="https://www.tamu.edu/"
-     style="color: #500000; font-weight: 500;">
-    <img src="/assets/img/TAMU_icon_v3.png"
-         alt="Texas A&amp;M University"
-         style="height: 1.15em; width: auto; margin-right: 0.2em; vertical-align: -0.18em;">
+  <a href="https://www.tamu.edu/">
+    <img class="affiliation-logo" src="{{ '/assets/img/TAMU_icon_v3.png' | relative_url }}" alt="">
     Texas A&amp;M University
-  </a>,
-  advised by
-  <a href="https://engineering.tamu.edu/cse/profiles/tu-zhengzhong.html"
-     style="color: #500000; font-weight: 500;">
-    Prof. Zhengzhong Tu
-  </a>.
+  </a>, advised by
+  <a href="https://engineering.tamu.edu/cse/profiles/tu-zhengzhong.html">Prof. Zhengzhong Tu</a>.
 </p>
 
 <p>
   Before joining TAMU, I worked as a research assistant at
-  <a href="https://chaofengc.github.io/group.html"
-     style="color: #500000; font-weight: 500;">
-    <img src="/assets/img/MindVisionLab_icon.png"
-         alt="MindVision Lab"
-         style="height: 1.15em; width: auto; margin-right: 0.2em; vertical-align: -0.18em;">
+  <a href="https://chaofengc.github.io/group.html">
+    <img class="affiliation-logo" src="{{ '/assets/img/MindVisionLab_icon.png' | relative_url }}" alt="">
     MindVision Lab
-  </a>
-  under the supervision of
-  <a href="https://chaofengc.github.io/index.html"
-     style="color: #500000; font-weight: 500;">
-    Prof. Chaofeng Chen
-  </a>.
+  </a> under the supervision of
+  <a href="https://chaofengc.github.io/index.html">Prof. Chaofeng Chen</a>.
   I also worked with Prof. Fengchang Yu.
   I received my bachelor’s degree from
-  <a href="https://en.whu.edu.cn/"
-     style="color: #500000; font-weight: 500;">
-    <img src="/assets/img/WHU_icon.png"
-         alt="Wuhan University"
-         style="height: 1.15em; width: auto; margin-right: 0.2em; vertical-align: -0.18em;">
+  <a href="https://en.whu.edu.cn/">
+    <img class="affiliation-logo" src="{{ '/assets/img/WHU_icon.png' | relative_url }}" alt="">
     Wuhan University
   </a>.
 </p>
-
-<div id="visitor-map-section"
-     style="
-       max-width: 347px;
-       width: 100%;
-       margin: 2.5rem auto 1.5rem;
-       text-align: center;
-       overflow: hidden;
-     ">
-  <script
-    type="text/javascript"
-    id="mapmyvisitors"
-    src="https://mapmyvisitors.com/map.js?d=fXw9Vlslih10VunNBDNhv7my0H_HH5a6kCFwKiB-Jas&cl=ffffff&w=a">
-  </script>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const visitorMap = document.getElementById("visitor-map-section");
-    const article = document.querySelector(".post article");
-
-    if (visitorMap && article) {
-      article.appendChild(visitorMap);
-    }
-  });
-</script>
-
-<style>
-  #visitor-map-section iframe,
-  #visitor-map-section canvas,
-  #visitor-map-section svg,
-  #visitor-map-section > div {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-  }
-</style>

@@ -25,7 +25,8 @@ module.exports = {
     },
   },
   use: {
-    baseURL: "http://127.0.0.1:4000/al-folio",
+    baseURL: process.env.SITE_URL || "http://127.0.0.1:4000/al-folio",
+    ...(process.env.PLAYWRIGHT_CHANNEL ? { browserName: "chromium", channel: process.env.PLAYWRIGHT_CHANNEL } : {}),
     screenshot: "only-on-failure",
     trace: "retain-on-failure",
   },

@@ -1,5 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
+const { createHash } = require("node:crypto");
 
 const root = process.cwd();
 
@@ -61,7 +62,32 @@ if (/gem 'al_math',\s*:git =>/.test(gemfile)) {
   failures.push("`Gemfile` must not use git-branch pin for `al_math`; use released gem version.");
 }
 
-for (const forbiddenPath of ["_includes", "_layouts", "_sass", "_scripts", "assets/tailwind", "tailwind.config.js", "assets/webfonts"]) {
+// This personal fork intentionally overrides these four gem-owned templates/tokens.
+// Everything else remains plugin-owned, and accepted files must match their audit hash.
+const siteOverrides = new Set(["_includes/head.liquid", "_includes/footer.liquid", "_layouts/about.liquid", "_sass/_themes.scss"]);
+const acknowledgements = exists(".al-folio-overrides.yml") ? read(".al-folio-overrides.yml") : "";
+function checkOverrides(directory) {
+  if (!exists(directory)) return;
+  for (const entry of fs.readdirSync(path.join(root, directory), { withFileTypes: true })) {
+    const relativePath = `${directory}/${entry.name}`;
+    if (entry.isDirectory()) {
+      checkOverrides(relativePath);
+      continue;
+    }
+    if (!entry.isFile() || !siteOverrides.has(relativePath)) {
+      failures.push(`Unexpected plugin-owned file: ${relativePath}.`);
+      continue;
+    }
+    const record = acknowledgements.match(new RegExp(`^  ${escapeRegExp(relativePath)}:\\n((?:    .*\\n?)*)`, "m"));
+    const hash = createHash("sha256").update(read(relativePath)).digest("hex");
+    if (!record || !record[1].includes(`local_sha256: ${hash}`)) {
+      failures.push(`Review and acknowledge ${relativePath} with al-folio upgrade overrides accept.`);
+    }
+  }
+}
+for (const directory of ["_includes", "_layouts", "_sass"]) checkOverrides(directory);
+
+for (const forbiddenPath of ["_scripts", "assets/tailwind", "tailwind.config.js", "assets/webfonts"]) {
   if (exists(forbiddenPath)) {
     failures.push(`Starter must not own core component path \`${forbiddenPath}\`; move ownership to the corresponding gem.`);
   }
